@@ -1,9 +1,9 @@
 import Foundation
 
-enum ScanError: ErrorProtocol {
+enum ScanError: Error {
     case NoMatch
 }
-enum ParseError: ErrorProtocol {
+enum ParseError: Error {
     case InvalidSyntax(Scanner.Position)
     case UnsupportedToken(Scanner.Position)
 }
