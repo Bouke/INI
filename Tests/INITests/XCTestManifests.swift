@@ -1,7 +1,13 @@
 import XCTest
 
 extension ParseINITests {
-    static let __allTests = [XCTestCase]()
+    static let __allTests = [
+        ("testParseINI", testParseINI),
+        ("testParseINIInvalidConfig", testParseINIInvalidConfig),
+        ("testParseINILeadingWhitespace", testParseINILeadingWhitespace),
+        ("testParseINIMissingField", testParseINIMissingField),
+        ("testParseINIMissingProfile", testParseINIMissingProfile),
+    ]
 }
 
 #if !os(macOS)
