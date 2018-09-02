@@ -1,24 +1,29 @@
-addons:
-  sonarcloud:
-    organization: bouke-github
 language: generic
 sudo: required
 script: swift test
 matrix:
   include:
-    - os: osx
+    - name: Xcode 9
+      os: osx
       osx_image: xcode9
-    - os: linux
+    - name: Linux Swift 4.0
+      os: linux
       dist: trusty
       install:
         - wget https://swift.org/builds/swift-4.0-release/ubuntu1404/swift-4.0-RELEASE/swift-4.0-RELEASE-ubuntu14.04.tar.gz
         - tar xzf swift-4.0-RELEASE-ubuntu14.04.tar.gz
         - export PATH=`pwd`/swift-4.0-RELEASE-ubuntu14.04/usr/bin:"${PATH}"
-    - os: osx
+    - name: Code Quality Checks
+      os: osx
       osx_image: xcode9
       install:
         - brew update
         - brew upgrade swiftlint || true
+      addons:
+        sonarcloud:
+          organization: bouke-github
       script:
         - swiftlint --strict
         - sonar-scanner
+allow_failures:
+  - os: linux
