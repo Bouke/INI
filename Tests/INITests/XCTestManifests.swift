@@ -7,6 +7,7 @@ extension ParseINITests {
         ("testParseINILeadingWhitespace", testParseINILeadingWhitespace),
         ("testParseINIMissingField", testParseINIMissingField),
         ("testParseINIMissingProfile", testParseINIMissingProfile),
+        ("testParseINIWhiteSpaceAroundEquals", testParseINIWhiteSpaceAroundEquals),
     ]
 }
 

@@ -62,6 +62,35 @@ final class ParseINITests: XCTestCase {
         }
     }
 
+    func testParseINIWhiteSpaceAroundEquals() {
+        // Given
+        let profileName = "dev"
+        let field1 = "test-field"
+        let value1 = "somevalue"
+        let field2 = "another-field"
+        let value2 = "val"
+        // Create config
+        let string = """
+        [\(profileName)]
+        \(field1) = \(value1)
+        \(field2) = \(value2)
+        """
+        do {
+            // When
+            let config = try parseINI(string: string)
+            // Then
+            XCTAssertNotNil(config[profileName])
+            guard let settings = config[profileName] else {
+                XCTFail("Unexpected nil")
+                return
+            }
+            XCTAssertEqual(value1, settings[field1])
+            XCTAssertEqual(value2, settings[field2])
+        } catch {
+            XCTFail("Unexpected error: \(error)")
+        }
+    }
+
     func testParseINIMissingProfile() {
         // Given
         let string = """

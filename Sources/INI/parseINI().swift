@@ -38,7 +38,7 @@ func scanSection(_ scanner: Scanner) throws -> Section {
             guard scanner.scanString("=", into: nil) else { throw ParseError.InvalidSyntax(scanner.position) }
             scanner.scanString(" ", into: nil)
             guard let value = scanner.scanUpToCharacters(from: .newlines) else { throw ParseError.InvalidSyntax(scanner.position) }
-            settings[key] = value
+            settings[key.trimmingCharacters(in: .whitespaces)] = value
             continue
         }
         do {
