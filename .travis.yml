@@ -1,11 +1,7 @@
 addons:
   sonarcloud:
     organization: bouke-github
-
-script:
-  - swift test
-  - sonar-scanner
-
+script: swift test
 matrix:
   include:
     - os: osx
@@ -21,4 +17,6 @@ matrix:
       install:
         - brew update
         - brew upgrade swiftlint || true
-      script: swiftlint --strict
+      script:
+        - swiftlint --strict
+        - sonar-scanner
