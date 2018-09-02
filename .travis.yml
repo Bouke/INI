@@ -1,12 +1,16 @@
-# Config based on https://github.com/IBM-Swift/Package-Builder
+addons:
+  sonarcloud:
+    organization: "bouke-github"
+    token:
+      secure: "DleYju6iKFe2YvL4Cm+hX6+HkLFqUT81SRVUY1v223Zf2hgy0u544yR7A7+YjzxMWjyCRb+6Kk1iorXIJiirTbm0RCw9sahNuGmY/jqnELxFEshTMI5PaKcjWC5Ksrawo3VRM41eqvQfgumx1jHMpkuxGtSi9h0rguS4Orvg+Ga30OAxwWz2rpAc4vVe60X5VpqTOtNHVCVdh0Ha343hUA74AoUnM2372PWtyiEMpMwujpijZdy4egSUUMqoflxmMnIXKesjHmxhZkDQSBqk8ng9dpIwTyJIx21d0rLtReo/549rmi0XbPg8YxI/xDf8JeUifclDvdhnKfUBHZ7VXzcbdiuCCCLOIhNfcSgG+7tF7gFFLL+sWb3W3wrZKfewYTazDUGinO+3rieYCBh24oYGNC2UohCn8YBYU9KqOwmFwstrk+dcU74gqVNgZk00p8bgIgW7NjKjB2oL4O3gMzUSAoOJkxlxhhs+KxmpdwO0LZeDIaEcxjv1XLZyWINBqUaGupwijw7hvpJ/JQdTJ+8kuqMS8OQJVYCHk5AWx1SwKfvVkmO/+I/8rXZoEnx31t76qMcBIddN9wbDGOP6eHz5S2ASXV9Fab+t1R+WPWbpoVtu2xIgOWXKZU5Pw7jh5JjL3mQf9glW5HRRGZIMQCkYwlZiCV2tcKGxHF/DB+k="
+
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9
-      sudo: required
-
+  - os: osx
+    osx_image: xcode9
+    sudo: required
 before_install:
   - git clone https://github.com/IBM-Swift/Package-Builder.git
-
 script:
-  - ./Package-Builder/build-package.sh -projectDir $TRAVIS_BUILD_DIR
+  - "./Package-Builder/build-package.sh -projectDir $TRAVIS_BUILD_DIR"
+  - sonar-scanner -X
