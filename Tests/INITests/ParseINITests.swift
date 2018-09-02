@@ -134,7 +134,7 @@ final class ParseINITests: XCTestCase {
         let string = "some random string..."
         do {
             // When
-            let _ = try parseINI(string: string)
+            _ = try parseINI(string: string)
             XCTFail("Unexpected success")
         } catch _ as ParseError {
             // Success

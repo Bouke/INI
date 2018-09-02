@@ -28,30 +28,32 @@ public struct Section {
 
 func scanSection(_ scanner: Scanner) throws -> Section {
     scanner.charactersToBeSkipped = .whitespacesAndNewlines
-    guard scanner.scanString("[", into: nil) else { throw ScanError.NoMatch }
-    guard let name = scanner.scanUpTo("]") else { throw ParseError.InvalidSyntax(scanner.position) }
+    guard scanner.scanString("[", into: nil) else { throw ScanError.noMatch }
+    guard let name = scanner.scanUpTo("]") else { throw ParseError.invalidSyntax(scanner.position) }
     scanner.scanString("]", into: nil)
     var settings = [String: String]()
     while true {
         if var key = scanner.scanCharacters(from: .alphanumerics) {
             key += scanner.scanUpTo("=") ?? ""
-            guard scanner.scanString("=", into: nil) else { throw ParseError.InvalidSyntax(scanner.position) }
+            guard scanner.scanString("=", into: nil) else { throw ParseError.invalidSyntax(scanner.position) }
             scanner.scanString(" ", into: nil)
-            guard let value = scanner.scanUpToCharacters(from: .newlines) else { throw ParseError.InvalidSyntax(scanner.position) }
+            guard let value = scanner.scanUpToCharacters(from: .newlines) else {
+                throw ParseError.invalidSyntax(scanner.position)
+            }
             settings[key.trimmingCharacters(in: .whitespaces)] = value
             continue
         }
         do {
             try scanNote(scanner)
             continue
-        } catch ScanError.NoMatch { }
+        } catch ScanError.noMatch { }
         break
     }
     return Section(name: name, settings: settings)
 }
 
 func scanNote(_ scanner: Scanner) throws {
-    guard scanner.scanString(";", into: nil) else { throw ScanError.NoMatch }
+    guard scanner.scanString(";", into: nil) else { throw ScanError.noMatch }
     scanner.scanUpToCharacters(from: .newlines, into: nil)
 }
 
@@ -67,12 +69,12 @@ public func parseINI(string: String) throws -> Config {
         do {
             sections.append(try scanSection(scanner))
             continue
-        } catch ScanError.NoMatch { }
+        } catch ScanError.noMatch { }
         do {
             try scanNote(scanner)
             continue
-        } catch ScanError.NoMatch { }
-        throw ParseError.UnsupportedToken(scanner.position)
+        } catch ScanError.noMatch { }
+        throw ParseError.unsupportedToken(scanner.position)
     }
     return Config(sections: sections)
 }

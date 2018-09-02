@@ -1,18 +1,18 @@
 import Foundation
 
 enum ScanError: Error {
-    case NoMatch
+    case noMatch
 }
 enum ParseError: Error {
-    case InvalidSyntax(Scanner.Position)
-    case UnsupportedToken(Scanner.Position)
+    case invalidSyntax(Scanner.Position)
+    case unsupportedToken(Scanner.Position)
 }
 
 extension ParseError: CustomStringConvertible {
     var description: String {
         switch self {
-        case let .InvalidSyntax(_, row, pos): return "Invalid syntax at row \(row), position \(pos)"
-        case let .UnsupportedToken(_, row, pos): return "Unsupported token at row \(row), position \(pos)"
+        case let .invalidSyntax(_, row, pos): return "Invalid syntax at row \(row), position \(pos)"
+        case let .unsupportedToken(_, row, pos): return "Unsupported token at row \(row), position \(pos)"
         }
     }
 }
