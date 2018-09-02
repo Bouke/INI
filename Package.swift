@@ -5,12 +5,12 @@ import PackageDescription
 let package = Package(
   name: "INI",
   products: [
-      .library(name: "INI", targets: ["INI"]),
+      .library(name: "INI", targets: ["INI"])
   ],
   targets: [
       .target(name: "INI"),
         .testTarget(
             name: "INITests",
-            dependencies: ["INI"]),
+            dependencies: ["INI"])
   ]
 )

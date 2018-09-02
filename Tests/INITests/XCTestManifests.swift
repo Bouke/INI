@@ -1,20 +1,20 @@
 import XCTest
 
 extension ParseINITests {
-    static let __allTests = [
+    static let allTests = [
         ("testParseINI", testParseINI),
         ("testParseINIInvalidConfig", testParseINIInvalidConfig),
         ("testParseINILeadingWhitespace", testParseINILeadingWhitespace),
         ("testParseINIMissingField", testParseINIMissingField),
         ("testParseINIMissingProfile", testParseINIMissingProfile),
-        ("testParseINIWhiteSpaceAroundEquals", testParseINIWhiteSpaceAroundEquals),
+        ("testParseINIWhiteSpaceAroundEquals", testParseINIWhiteSpaceAroundEquals)
     ]
 }
 
 #if !os(macOS)
-public func __allTests() -> [XCTestCaseEntry] {
+public func allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(ParseINITests.__allTests),
+        testCase(ParseINITests.allTests)
     ]
 }
 #endif
