@@ -13,7 +13,7 @@ extension Scanner {
     func scanCharacters(from set: CharacterSet) -> String? {
         var value: NSString? = ""
         if scanCharacters(from: set, into: &value),
-            let value = value as? String {
+            let value = value as String? {
             return value
         }
         return nil
@@ -23,7 +23,7 @@ extension Scanner {
     func scanUpToCharacters(from set: CharacterSet) -> String? {
         var value: NSString? = ""
         if scanUpToCharacters(from: set, into: &value),
-            let value = value as? String {
+            let value = value as String? {
             return value
         }
         return nil
@@ -33,7 +33,7 @@ extension Scanner {
     func scanString(_ str: String) -> String? {
         var value: NSString? = ""
         if scanString(str, into: &value),
-            let value = value as? String {
+            let value = value as String? {
             return value
         }
         return nil
@@ -43,7 +43,7 @@ extension Scanner {
     func scanUpTo(_ str: String) -> String? {
         var value: NSString? = ""
         if scanUpTo(str, into: &value),
-            let value = value as? String {
+            let value = value as String? {
             return value
         }
         return nil
@@ -152,7 +152,7 @@ extension Scanner {
         return nil
     }
 
-    typealias Position = (line: Range<String.CharacterView.Index>, row: Int, pos: Int)
+    typealias Position = (line: Range<String.Index>, row: Int, pos: Int)
     var position: Position {
         let index = string.index(string.startIndex, offsetBy: scanLocation)
         var head = string.startIndex..<string.startIndex
