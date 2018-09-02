@@ -1,6 +1,8 @@
 addons:
   sonarcloud:
     organization: bouke-github
+language: generic
+sudo: required
 script: swift test
 matrix:
   include:
