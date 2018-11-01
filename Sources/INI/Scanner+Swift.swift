@@ -11,6 +11,11 @@ extension Scanner {
 
     /// Returns a string, scanned as long as characters from a given character
     /// set are encountered, or `nil` if none are found.
+#if os(Linux)
+    func scanCharacters(from set: CharacterSet) -> String? {
+        return scanCharactersFromSet(set)
+    }
+#else
     func scanCharacters(from set: CharacterSet) -> String? {
         var value: NSString? = ""
         if scanCharacters(from: set, into: &value),
@@ -19,10 +24,16 @@ extension Scanner {
         }
         return nil
     }
+#endif
 
     /// Returns a string, scanned until a character from a given character set
     /// are encountered, or the remainder of the scanner's string. Returns
     /// `nil` if the scanner is already `atEnd`.
+#if os(Linux)
+    func scanUpToCharacters(from set: CharacterSet) -> String? {
+        return scanUpToCharactersFromSet(set)
+    }
+#else
     func scanUpToCharacters(from set: CharacterSet) -> String? {
         var value: NSString? = ""
         if scanUpToCharacters(from: set, into: &value),
@@ -31,8 +42,10 @@ extension Scanner {
         }
         return nil
     }
+#endif
 
     /// Returns the given string if scanned, or `nil` if not found.
+#if !os(Linux)
     func scanString(_ str: String) -> String? {
         var value: NSString? = ""
         if scanString(str, into: &value),
@@ -41,10 +54,16 @@ extension Scanner {
         }
         return nil
     }
+#endif
 
     /// Returns a string, scanned until the given string is found, or the
     /// remainder of the scanner's string. Returns `nil` if the scanner is
     /// already `atEnd`.
+#if os(Linux)
+    func scanUpTo(_ str: String) -> String? {
+        return scanUpToString(str)
+    }
+#else
     func scanUpTo(_ str: String) -> String? {
         var value: NSString? = ""
         if scanUpTo(str, into: &value),
@@ -53,6 +72,7 @@ extension Scanner {
         }
         return nil
     }
+#endif
 
     // MARK: Numbers
 
