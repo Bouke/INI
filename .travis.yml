@@ -25,5 +25,3 @@ matrix:
       script:
         - swiftlint --strict
         - sonar-scanner
-  allow_failures:
-    - os: linux
