@@ -1,8 +1,6 @@
 import XCTest
+@testable import INITests
 
-import INITests
-
-var tests = [XCTestCaseEntry]()
-tests += INITests.__allTests()
-
-XCTMain(tests)
+XCTMain([
+    testCase(ParseINITests.allTests)
+])

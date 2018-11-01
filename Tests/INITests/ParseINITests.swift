@@ -2,6 +2,18 @@ import XCTest
 @testable import INI
 
 final class ParseINITests: XCTestCase {
+    static var allTests: [(String, (ParseINITests) -> () throws -> Void)] {
+        return [
+            ("testParseINI", testParseINI),
+            ("testParseINILeadingWhitespace", testParseINILeadingWhitespace),
+            ("testParseINIWhiteSpaceAroundEquals", testParseINIWhiteSpaceAroundEquals),
+            ("testParseINIMissingProfile", testParseINIMissingProfile),
+            ("testParseINIMissingField", testParseINIMissingField),
+            ("testParseINIInvalidConfig", testParseINIInvalidConfig),
+            ("testLinuxTestSuiteIncludesAllTests", testLinuxTestSuiteIncludesAllTests)
+        ]
+    }
+
     func testParseINI() {
         // Given
         let profileName = "dev"
@@ -141,5 +153,18 @@ final class ParseINITests: XCTestCase {
         } catch {
             XCTFail("Unexpected error: \(error)")
         }
+    }
+
+    // from: https://oleb.net/blog/2017/03/keeping-xctest-in-sync/#appendix-code-generation-with-sourcery
+    func testLinuxTestSuiteIncludesAllTests() {
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+            let thisClass = type(of: self)
+            let linuxCount = thisClass.allTests.count
+            let darwinCount = Int(thisClass
+                .defaultTestSuite.testCaseCount)
+            XCTAssertEqual(linuxCount,
+                           darwinCount,
+                           "\(darwinCount - linuxCount) tests are missing from allTests")
+        #endif
     }
 }
